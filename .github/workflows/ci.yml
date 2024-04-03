@@ -21,3 +21,12 @@ jobs:
 
       - name: Build docker image
         run: docker build -t pedrodavim/nlw.service.passin:${{ steps.generate_sha.outputs.sha }} .
+
+      - name: Authenticate in Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}
+
+      - name: Push image
+        run: docker push pedrodavim/nlw.service.passin:${{ steps.generate_sha.outputs.sha }}
