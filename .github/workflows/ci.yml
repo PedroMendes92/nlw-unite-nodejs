@@ -29,4 +29,7 @@ jobs:
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
       - name: Push image
-        run: docker push pedrodavim/nlw.service.passin:${{ steps.generate_sha.outputs.sha }}
+        run: |
+          docker push pedrodavim/nlw.service.passin:${{ steps.generate_sha.outputs.sha }}
+          docker tag pedrodavim/nlw.service.passin:${{ steps.generate_sha.outputs.sha }} pedrodavim/nlw.service.passin:latest
+          docker push pedrodavim/nlw.service.passin:latest
